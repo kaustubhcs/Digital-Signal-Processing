@@ -1,4 +1,4 @@
-%% Deuternaopia Combined Filter Analysis
+%% Deuteranopia Combined Filter Analysis
 % This analysis is based on assuming the filter characteristics to be
 % ideal. This is not true in the real world scenario. The graph will have
 % infinite number of poles and infinite number of zeros to get the ideal
