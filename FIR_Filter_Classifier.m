@@ -324,5 +324,12 @@ equity_den = equity_den + den(l2+1);
 
 equity = equity_num / equity_den;
 
+%% Function Termination
+disp ('Function Termination');
+% end
+
 %% Author: Kaustubh Shivdikar
+% MATLAB Lab experiment of FIR Filter Classifier.
+%
+% <<D:\MATLAB Files\matlablogo.png>>
 %
