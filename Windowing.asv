@@ -9,8 +9,7 @@ clear all
 clc
 
 %% Function Begin
-disp('Commented for Publishing');
-% function z = Windowing(N) {
+function z = Windowing(N)
 
 
 %% STOP BAND Frequency
@@ -32,10 +31,9 @@ Ws=(2*pi*fs)/F;
 
 Wc=(Ws+Wp)/2;
 
-%% Order of the filter
-% Commented for publishing.
-% N=input('Enter the order of the royal filter (Number has to be odd): ');
-N = 31;
+%Order of the filter
+
+N=input('Enter the order of the royal filter (Number has to be odd): ');
 
 alpha=(N-1)/2;
 
