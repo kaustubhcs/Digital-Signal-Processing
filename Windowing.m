@@ -31,7 +31,7 @@ Wc=(Ws+Wp)/2;
 
 %Order of the filter
 
-N=input('Enter the order of the royal filter : ');
+N=input('Enter the order of the royal filter (Number has to be odd): ');
 
 alpha=(N-1)/2;
 
@@ -47,6 +47,8 @@ t=1:(2*alpha)+1;
 hd((N-1)/2)=(Wc/pi);
 
 %% Original
+
+hd
 
 r = rectwin(N);
 b= blackman(N);
