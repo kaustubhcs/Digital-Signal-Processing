@@ -1,4 +1,4 @@
-%% FIR Filter Classifier
+%% FIR Filter Classifier Type A
 %
 %% Linear Phase FIR Filter
 % The Discrete FIR Filter block independently filters each channel of the
