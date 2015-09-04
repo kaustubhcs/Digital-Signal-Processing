@@ -2,22 +2,22 @@
 %
 %% Linear Phase FIR Filter
 % The Discrete FIR Filter block independently filters each channel of the
-% input signal with the specified digital FIR filter. The block can 
-% implement static filters with fixed coefficients, as well as 
-% time-varying filters with coefficients that change over time. 
+% input signal with the specified digital FIR filter. The block can
+% implement static filters with fixed coefficients, as well as
+% time-varying filters with coefficients that change over time.
 % You can tune the coefficients of a static filter during simulation.
-% This block filters each channel of the input signal independently over 
-% time. The Input processing parameter allows you to specify whether the 
-% block treats each element of the input as an independent channel 
+% This block filters each channel of the input signal independently over
+% time. The Input processing parameter allows you to specify whether the
+% block treats each element of the input as an independent channel
 % (sample-based processing), or each column of the input as an independent
-% channel (frame-based processing). To perform frame-based processing, 
+% channel (frame-based processing). To perform frame-based processing,
 % you must have a DSP System Toolbox™ license.
-% The output dimensions equal those of the input, except when you specify 
-% a matrix of filter taps for the Coefficients parameter. When you do so, 
-% the output dimensions depend on the number of different sets of filter 
+% The output dimensions equal those of the input, except when you specify
+% a matrix of filter taps for the Coefficients parameter. When you do so,
+% the output dimensions depend on the number of different sets of filter
 % taps you specify.
 
-%% Initialization
+%% Initialization for TYPE A Filter
 
 clear all
 clc
@@ -32,7 +32,7 @@ num = [ 1 1 2 1 1];
 
 %% Developer's Mode
 
-dmode = 0;
+dmode = 1;
 
 %% Generating Poles for Linear FIR Filter
 
@@ -41,9 +41,9 @@ dmode = 0;
 den(1) = 1;
 
 for i=2:k
-   
+    
     den(k) = 0;
-        
+    
 end
 
 
@@ -81,50 +81,48 @@ end
 %% Geting Transfer Function h(n)
 
 if (flag_A == true)
-%% If ODD
-
-if (dmode)
-disp('KTB ODD')
-end
-h = num;
-
-[~,n] = size(h);
-N = n;
-n = n - 1;
-n = n/2;
-
-
-
-for i = 1:n
-    if (h(i) == h(N+1-i))
-        if (dmode)
-        disp('KTB SYMM');
-        end
-        check_sym(i) = 1;
-        flag_sym = flag_sym * 1;
+    %% If ODD
     
+    if (dmode)
+        disp('KTB ODD')
+    end
+    h = num;
     
-    
-    else if (h(i) == (-1 * h(N+1-i)))
-        flag_sym = flag_sym * -1;
-        check_sym(i) = -1;
-        if (dmode)
-        disp('KTB ANTI SYMM');
-        end
-        
-        else
-            flag_sym = 0;
+    [~,n] = size(h);
+    N = n;
+    n = n - 1;
+    n = n/2;
+  
+    for i = 1:n
+        if (h(i) == h(N+1-i))
             if (dmode)
+                disp('KTB SYMM');
+            end
+            check_sym(i) = 1;
+            flag_sym = flag_sym * 1;
+            
+            
+            
+        else if (h(i) == (-1 * h(N+1-i)))
+                flag_sym = flag_sym * -1;
+                check_sym(i) = -1;
+                if (dmode)
+                    disp('KTB ANTI SYMM');
+                end
+                
+            else
+                flag_sym = 0;
+                if (dmode)
                     disp('KTB Nothing');
+                end
             end
         end
+        
     end
     
-end
-
-   
-    if (check_sym(1)>0)
     
+    if (check_sym(1)>0)
+        
         flag_C = false;
         
     else
@@ -132,77 +130,57 @@ end
         flag_A = false;
         
     end
+   
     
-    
-    
-    
-
-
 else
-%% IF even
-if (dmode)
-disp('KTB EVEN')
-end
-h = num;
-
-[~,n] = size(h);
-N = n;
-n = n/2;
-
-
-
-for i = 1:n
-    if (h(i) == h(N+1-i))
-        if (dmode)
-        disp('KTB SYMM');
-        end
-        check_sym(i) = 1;
-        flag_sym = flag_sym * 1;
+    %% IF even
+    if (dmode)
+        disp('KTB EVEN')
+    end
+    h = num;
+    
+    [~,n] = size(h);
+    N = n;
+    n = n/2;
     
     
     
-    else
-        
-        
-        
-        if (dmode)
-        disp('KTB Reached')
-        end
-        if (h(i) == (-1 * h(N+1-i)))
-        flag_sym = flag_sym * -1;
-        check_sym(i) = -1;
-        if (dmode)
-        disp('KTB ANTI SYMM');
-        end
-        
-        else
-            flag_sym = 0;
+    for i = 1:n
+        if (h(i) == h(N+1-i))
             if (dmode)
+                disp('KTB SYMM');
+            end
+            check_sym(i) = 1;
+            flag_sym = flag_sym * 1;
+           
+        else
+            
+           if (dmode)
+                disp('KTB Reached')
+            end
+            if (h(i) == (-1 * h(N+1-i)))
+                flag_sym = flag_sym * -1;
+                check_sym(i) = -1;
+                if (dmode)
+                    disp('KTB ANTI SYMM');
+                end
+                
+            else
+                flag_sym = 0;
+                if (dmode)
                     disp('KTB Nothing');
+                end
             end
         end
-        
-        
-        
-        
-        
+      
     end
-  
     
     
     
     
     
-    
-    
-end
-
-
-
-
-
- if (check_sym(1)>0)
-    
+    if (check_sym(1)>0)
+        
         flag_D = false;
         
     else
@@ -210,9 +188,9 @@ end
         flag_B = false;
         
     end
-   
     
-
+    
+    
 end
 
 
@@ -221,16 +199,13 @@ end
 lfir = 1;
 
 for p = 1:(lc-1)
-   
+    
     
     if (check_sym(p) ~= check_sym(p+1))
         lfir = lfir *0;
         
     end
-        
-    
-    
-    
+   
 end
 %% Final OUTPUT
 % Answers
@@ -238,20 +213,20 @@ end
 if (lfir)
     
     if (flag_A)
-       disp('Given Filter classified as type: A') 
+        disp('Given Filter classified as type: A')
     end
     
     if (flag_B)
-       disp('Given Filter classified as type: B') 
+        disp('Given Filter classified as type: B')
     end
     if (flag_C)
-       disp('Given Filter classified as type: C') 
+        disp('Given Filter classified as type: C')
     end
     if (flag_D)
-       disp('Given Filter classified as type: D') 
+        disp('Given Filter classified as type: D')
     end
     
-   
+    
 else
     
     disp('NOT A LINEAR FINITE IMPULSE RESPONSE FILTER!')
@@ -277,8 +252,8 @@ plot(x,y)
 
 for i=1:l1
     
-plot(real(n_roots(i)),imag(n_roots(i)),'o');
-
+    plot(real(n_roots(i)),imag(n_roots(i)),'o');
+    
 end
 
 
@@ -286,8 +261,8 @@ end
 
 for i=1:l2
     
-plot(real(d_roots(i)),imag(d_roots(i)),'*');
-
+    plot(real(d_roots(i)),imag(d_roots(i)),'*');
+    
 end
 
 axis equal
@@ -307,18 +282,18 @@ z  = x;
 
 
 for k = 1:(l1)
-%disp('KTB');
-equity_num = equity_num + z.^k * num(l1 - k + 1);
-
+    %disp('KTB');
+    equity_num = equity_num + z.^k * num(l1 - k + 1);
+    
 end
 
 equity_num = equity_num + num(l1+1);
 
 
 for m = 1:(l2)
-
-equity_den = equity_den + z.^m * den(l2 - m + 1);
-
+    
+    equity_den = equity_den + z.^m * den(l2 - m + 1);
+    
 end
 
 
@@ -328,33 +303,33 @@ equity_den = equity_den + den(l2+1);
 equity = equity_num / equity_den;
 
 %% Reuired Responses
- figure();
- freqz(n_roots,d_roots);
- figure();
- fvtool(num);
+figure();
+freqz(n_roots,d_roots);
+figure();
+fvtool(num);
 
- 
- 
- 
- 
- 
- 
- 
 
- 
- 
- 
- %% Initialization
+
+
+
+
+
+
+
+
+
+
+%% Initialization for TYPE B Filter
 
 clear all
 clc
- 
- %% For Type B Filter
+
+%% For Type B Filter
 num = [ 1 2 2 1 ];
 
 %% Developer's Mode
 
-dmode = 0;
+dmode = 1;
 
 %% Generating Poles for Linear FIR Filter
 
@@ -363,16 +338,13 @@ dmode = 0;
 den(1) = 1;
 
 for i=2:k
-   
+    
     den(k) = 0;
-        
+    
 end
-
 
 n_roots = roots(num);
 d_roots = roots(den);
-
-
 
 
 [number_of_coefficients, ~] = size(d_roots);
@@ -403,128 +375,99 @@ end
 %% Geting Transfer Function h(n)
 
 if (flag_A == true)
-%% If ODD
-
-if (dmode)
-disp('KTB ODD')
-end
-h = num;
-
-[~,n] = size(h);
-N = n;
-n = n - 1;
-n = n/2;
-
-
-
-for i = 1:n
-    if (h(i) == h(N+1-i))
-        if (dmode)
-        disp('KTB SYMM');
-        end
-        check_sym(i) = 1;
-        flag_sym = flag_sym * 1;
+    %% If ODD
+    
+    if (dmode)
+        disp('KTB ODD')
+    end
+    h = num;
+    
+    [~,n] = size(h);
+    N = n;
+    n = n - 1;
+    n = n/2;
     
     
     
-    else if (h(i) == (-1 * h(N+1-i)))
-        flag_sym = flag_sym * -1;
-        check_sym(i) = -1;
-        if (dmode)
-        disp('KTB ANTI SYMM');
-        end
-        
-        else
-            flag_sym = 0;
+    for i = 1:n
+        if (h(i) == h(N+1-i))
             if (dmode)
+                disp('KTB SYMM');
+            end
+            check_sym(i) = 1;
+            flag_sym = flag_sym * 1;
+            
+            
+            
+        else if (h(i) == (-1 * h(N+1-i)))
+                flag_sym = flag_sym * -1;
+                check_sym(i) = -1;
+                if (dmode)
+                    disp('KTB ANTI SYMM');
+                end
+                
+            else
+                flag_sym = 0;
+                if (dmode)
                     disp('KTB Nothing');
+                end
             end
         end
+        
     end
     
-end
-
-   
+    
     if (check_sym(1)>0)
-    
         flag_C = false;
-        
     else
-        
         flag_A = false;
-        
     end
-    
-    
-    
-    
-
-
 else
-%% IF even
-if (dmode)
-disp('KTB EVEN')
-end
-h = num;
-
-[~,n] = size(h);
-N = n;
-n = n/2;
-
-
-
-for i = 1:n
-    if (h(i) == h(N+1-i))
-        if (dmode)
-        disp('KTB SYMM');
-        end
-        check_sym(i) = 1;
-        flag_sym = flag_sym * 1;
+    %% IF even
+    if (dmode)
+        disp('KTB EVEN')
+    end
+    h = num;
+    
+    [~,n] = size(h);
+    N = n;
+    n = n/2;
     
     
     
-    else
-        
-        
-        
-        if (dmode)
-        disp('KTB Reached')
-        end
-        if (h(i) == (-1 * h(N+1-i)))
-        flag_sym = flag_sym * -1;
-        check_sym(i) = -1;
-        if (dmode)
-        disp('KTB ANTI SYMM');
-        end
-        
-        else
-            flag_sym = 0;
+    for i = 1:n
+        if (h(i) == h(N+1-i))
             if (dmode)
+                disp('KTB SYMM');
+            end
+            check_sym(i) = 1;
+            flag_sym = flag_sym * 1;
+        else
+            if (dmode)
+                disp('KTB Reached')
+            end
+            if (h(i) == (-1 * h(N+1-i)))
+                flag_sym = flag_sym * -1;
+                check_sym(i) = -1;
+                if (dmode)
+                    disp('KTB ANTI SYMM');
+                end
+                
+            else
+                flag_sym = 0;
+                if (dmode)
                     disp('KTB Nothing');
+                end
             end
         end
+   end
+    
+    
+    
+    
+    
+    if (check_sym(1)>0)
         
-        
-        
-        
-        
-    end
-  
-    
-    
-    
-    
-    
-    
-    
-end
-
-
-
-
-
- if (check_sym(1)>0)
-    
         flag_D = false;
         
     else
@@ -532,9 +475,9 @@ end
         flag_B = false;
         
     end
-   
     
-
+    
+    
 end
 
 
@@ -543,13 +486,13 @@ end
 lfir = 1;
 
 for p = 1:(lc-1)
-   
+    
     
     if (check_sym(p) ~= check_sym(p+1))
         lfir = lfir *0;
         
     end
-        
+    
     
     
     
@@ -560,20 +503,20 @@ end
 if (lfir)
     
     if (flag_A)
-       disp('Given Filter classified as type: A') 
+        disp('Given Filter classified as type: A')
     end
     
     if (flag_B)
-       disp('Given Filter classified as type: B') 
+        disp('Given Filter classified as type: B')
     end
     if (flag_C)
-       disp('Given Filter classified as type: C') 
+        disp('Given Filter classified as type: C')
     end
     if (flag_D)
-       disp('Given Filter classified as type: D') 
+        disp('Given Filter classified as type: D')
     end
     
-   
+    
 else
     
     disp('NOT A LINEAR FINITE IMPULSE RESPONSE FILTER!')
@@ -599,17 +542,13 @@ plot(x,y)
 
 for i=1:l1
     
-plot(real(n_roots(i)),imag(n_roots(i)),'o');
-
+    plot(real(n_roots(i)),imag(n_roots(i)),'o');
 end
-
-
-
 
 for i=1:l2
     
-plot(real(d_roots(i)),imag(d_roots(i)),'*');
-
+    plot(real(d_roots(i)),imag(d_roots(i)),'*');
+    
 end
 
 axis equal
@@ -629,18 +568,18 @@ z  = x;
 
 
 for k = 1:(l1)
-%disp('KTB');
-equity_num = equity_num + z.^k * num(l1 - k + 1);
-
+    %disp('KTB');
+    equity_num = equity_num + z.^k * num(l1 - k + 1);
+    
 end
 
 equity_num = equity_num + num(l1+1);
 
 
 for m = 1:(l2)
-
-equity_den = equity_den + z.^m * den(l2 - m + 1);
-
+    
+    equity_den = equity_den + z.^m * den(l2 - m + 1);
+    
 end
 
 
@@ -650,14 +589,14 @@ equity_den = equity_den + den(l2+1);
 equity = equity_num / equity_den;
 
 %% Reuired Responses
- figure();
- freqz(n_roots,d_roots);
- figure();
- fvtool(num);
- 
- 
- 
- 
+figure();
+freqz(n_roots,d_roots);
+figure();
+fvtool(num);
+
+
+
+
 %% Function Termination
 disp ('Function Termination');
 % end
