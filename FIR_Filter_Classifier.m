@@ -26,7 +26,7 @@ clc
 % This input will be received from the user end.
 
 
-num = [2 54 6 78 1 1 0 1 1];
+num = [ 1 1 2 1 1];
 
 %% Developer's Mode
 
