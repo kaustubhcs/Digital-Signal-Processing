@@ -48,8 +48,12 @@ end
 n_roots = roots(num);
 d_roots = roots(den);
 
+
+%% TEST ~~~~~~~ !!!!!!!!!
  figure();
  freqz(n_roots,d_roots);
+figure();
+fvtool
 figure();
 
 [number_of_coefficients, ~] = size(d_roots);
