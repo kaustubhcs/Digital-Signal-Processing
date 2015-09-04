@@ -26,6 +26,7 @@ clc
 % This input will be received from the user end.
 
 
+%% For Type A Filter
 num = [ 1 1 2 1 1];
 
 %% Developer's Mode
