@@ -1,4 +1,4 @@
-%% FIR Filter Classifier Type A
+%% FIR Filter Classifier Type B
 %
 %% Linear Phase FIR Filter
 % The Discrete FIR Filter block independently filters each channel of the
@@ -28,7 +28,7 @@ clc
 
 
 %% For Type A Filter
-num = [ 1 1 2 1 1];
+num = [ 1 2 2 1];
 
 %% Developer's Mode
 

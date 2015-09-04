@@ -28,7 +28,7 @@ clc
 
 
 %% For Type A Filter
-num = [ 1 1 2 1 1];
+num = [ 1 3 1 2 1 3 1];
 
 %% Developer's Mode
 
