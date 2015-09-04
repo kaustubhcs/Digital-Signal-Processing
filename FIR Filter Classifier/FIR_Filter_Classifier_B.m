@@ -17,7 +17,7 @@
 % the output dimensions depend on the number of different sets of filter
 % taps you specify.
 
-%% Initialization for TYPE A Filter
+%% Initialization for TYPE B Filter
 
 clear all
 clc
