@@ -49,12 +49,7 @@ n_roots = roots(num);
 d_roots = roots(den);
 
 
-%% TEST ~~~~~~~ !!!!!!!!!
- figure();
- freqz(n_roots,d_roots);
-figure();
-fvtool
-figure();
+
 
 [number_of_coefficients, ~] = size(d_roots);
 
@@ -333,7 +328,8 @@ equity = equity_num / equity_den;
 %% Reuired Responses
  figure();
  freqz(n_roots,d_roots);
-
+ figure();
+ fvtool(num);
 
 %% Function Termination
 disp ('Function Termination');
