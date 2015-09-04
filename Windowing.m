@@ -54,14 +54,22 @@ hd((N-1)/2)=(Wc/pi);
 
 hd
 
+
+%% Rectangular window
 r = rectwin(N);
+%% Blackman window
 b= blackman(N);
+%% Chebyshev window
 c = chebwin(N);
+%% Tukey window
 tk = tukeywin(N);
-tr = triang(N);
+%% Blackmanharris window
 bmh = blackmanharris(N);
+%% Hamming window
 hm = hamming(N);
+%% Hanning window
 hn = hann(N);
+%% Flat Top window
 ftw = flattopwin(N);
 
 for i=1:(2*alpha)+1
@@ -86,47 +94,45 @@ for i=1:(2*alpha)+1
 end
 
 %% Plotting of OUTPUT for Comparison
+% Subplot is Disabled for publishing purposes
 
 
-figure();
-hold on;
-
-subplot(3,3,1);
+% subplot(3,3,1);
 stem(t,hd);
 xlabel('Original Plot');
 
-subplot(3,3,2);
+% subplot(3,3,2);
 stem(t,rh);
 xlabel('Rectangular window');
 
-subplot(3,3,3);
+% subplot(3,3,3);
 stem(t,bh);
 xlabel('Blackman window');
 
-subplot(3,3,4);
+% subplot(3,3,4);
 stem(t,ch);
 xlabel('Chebyshev window');
 
-subplot(3,3,5);
+% subplot(3,3,5);
 stem(t,th);
 xlabel('Tukey window ');
 
-subplot(3,3,6);
+% subplot(3,3,6);
 stem(t,bmhh);
 xlabel('Blackmanharris window');
 
 
-subplot(3,3,7);
+% subplot(3,3,7);
 stem(t,hmh);
 xlabel('Hamming window');
 
 
-subplot(3,3,8);
+% subplot(3,3,8);
 stem(t,hnh);
 xlabel('Hanning window');
 
 
-subplot(3,3,9);
+% subplot(3,3,9);
 stem(t,ftwh);
 xlabel('Flat Top window');
 
