@@ -10,11 +10,18 @@ clc
 
 %% Function Begin
 
+%% STOP BAND Frequency
+
 fs=800;
+
+%% PASS BAND Frequency
 
 fp=300;
 
+%% Sampling Frequency
+
 F=1800;
+
 
 Wp=(2*pi*fp)/F;
 
@@ -22,20 +29,20 @@ Ws=(2*pi*fs)/F;
 
 Wc=(Ws+Wp)/2;
 
-%Order of the royal filter
+%Order of the filter
 
 N=input('Enter the order of the royal filter : ');
 
-alp=(N-1)/2;
+alpha=(N-1)/2;
 
-for i=1:(2*alp)+1
+for i=1:(2*alpha)+1
   
-    hd(i)= (Wc*sin(i-alp))/(pi*Wc*(i-alp));
+    hd(i)= (Wc*sin(i-alpha))/(pi*Wc*(i-alpha));
    
     
 end
 
-t=1:(2*alp)+1;
+t=1:(2*alpha)+1;
 
 hd((N-1)/2)=(Wc/pi);
 
@@ -51,7 +58,7 @@ hm = hamming(N);
 hn = hann(N);
 ftw = flattopwin(N);
 
-for i=1:(2*alp)+1
+for i=1:(2*alpha)+1
     
     rh(i)=r(i)*hd(i);
     
@@ -113,4 +120,12 @@ xlabel('Hanning window');
 subplot(3,3,9);
 stem(t,ftwh);
 xlabel('Flat Top window');
+
+
+%% Author: Kaustubh Shivdikar
+% MATLAB Lab experiment of Linear to circular convolution.
+%
+% <<D:\MATLAB Files\matlablogo.png>>
+%
+
 
