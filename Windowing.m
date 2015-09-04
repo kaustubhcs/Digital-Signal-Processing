@@ -1,5 +1,7 @@
 %% Windowing
-
+% Design, visualize, and implement window functions. Compare mainlobe 
+% widths and sidelobe levels of windows as a function of their size and 
+% other parameters.
 
 %% Initialization
 
